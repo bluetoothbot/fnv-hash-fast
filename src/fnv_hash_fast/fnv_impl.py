@@ -1,11 +1,8 @@
-from typing import TYPE_CHECKING, Callable, Union
+from typing import Union
 
 from fnvhash import FNV1_32_INIT, FNV_32_PRIME, fnva
 
 _FNV_SIZE = 2**32
-
-if TYPE_CHECKING:
-    fnv1a_32: Callable[[Union[bytes, bytearray, memoryview]], int]
 
 
 def fnv1a_32(data: Union[bytes, bytearray, memoryview]) -> int:
@@ -17,7 +14,7 @@ def fnv1a_32(data: Union[bytes, bytearray, memoryview]) -> int:
     """
     if not isinstance(data, bytes):
         data = bytes(memoryview(data))
-    return fnva(  # type: ignore[no-any-return]
+    return fnva(
         data, hval_init=FNV1_32_INIT, fnv_prime=FNV_32_PRIME, fnv_size=_FNV_SIZE
     )
 
